@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="InventoryManager.Views.ProductDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:InventoryManager.ViewModels"
+    x:DataType="vm:ProductDetailViewModel"
+    Title="Product Details">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="14">
+
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding Name}" FontSize="24" FontAttributes="Bold" />
+
+                    <Border Style="{StaticResource WarningBadge}"
+                            IsVisible="{Binding IsLowStock}"
+                            HorizontalOptions="Start">
+                        <Label Text="{Binding StockStatus}"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Warning}" />
+                    </Border>
+
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnSpacing="16" RowSpacing="8">
+                        <Label Grid.Row="0" Text="Category" Style="{StaticResource MutedLabel}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Category}" />
+
+                        <Label Grid.Row="1" Text="Price" Style="{StaticResource MutedLabel}" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding PriceDisplay}" />
+
+                        <Label Grid.Row="2" Text="Quantity" Style="{StaticResource MutedLabel}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding QuantityDisplay}" FontAttributes="Bold" />
+
+                        <Label Grid.Row="3" Text="Stock value" Style="{StaticResource MutedLabel}" />
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding TotalValueDisplay}" />
+
+                        <Label Grid.Row="4" Text="Status" Style="{StaticResource MutedLabel}" />
+                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding StockStatus}" />
+                    </Grid>
+
+                    <Label Text="{Binding CreatedText}" Style="{StaticResource MutedLabel}" />
+                    <Label Text="{Binding UpdatedText}" Style="{StaticResource MutedLabel}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Quick stock adjustment -->
+            <Border Style="{StaticResource Card}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Adjust stock" Style="{StaticResource FieldLabel}" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <Button Grid.Column="0" Text="-1"
+                                Style="{StaticResource SecondaryButton}"
+                                Command="{Binding AdjustStockCommand}"
+                                CommandParameter="-1" />
+                        <Button Grid.Column="1" Text="+1"
+                                Command="{Binding AdjustStockCommand}"
+                                CommandParameter="1" />
+                    </Grid>
+                    <Label Text="{Binding StatusMessage}"
+                           IsVisible="{Binding HasStatusMessage}"
+                           TextColor="{StaticResource Success}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Grid.Column="0" Text="Edit" Command="{Binding EditCommand}" />
+                <Button Grid.Column="1" Text="Delete" Style="{StaticResource DangerButton}" Command="{Binding DeleteCommand}" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
