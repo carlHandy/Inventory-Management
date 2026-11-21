@@ -12,6 +12,8 @@ public static class MauiProgram
 
         // Services: one shared instance for the whole app
         builder.Services.AddSingleton<IProductRepository, ProductDatabase>();
+        builder.Services.AddSingleton<IDialogService, DialogService>();
+        builder.Services.AddSingleton<INavigationService, NavigationService>();
 
         return builder.Build();
     }
