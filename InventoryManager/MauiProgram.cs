@@ -19,9 +19,11 @@ public static class MauiProgram
 
         // View models: a fresh instance each time a page is opened
         builder.Services.AddTransient<ProductListViewModel>();
+        builder.Services.AddTransient<ProductEditViewModel>();
 
         // Pages
         builder.Services.AddTransient<ProductListPage>();
+        builder.Services.AddTransient<ProductEditPage>();
 
         return builder.Build();
     }
