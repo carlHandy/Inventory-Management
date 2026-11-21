@@ -87,6 +87,7 @@ SQLite; they call `IProductRepository`. Everything is registered in `MauiProgram
 * `ProductDatabase` uses `SQLiteAsyncConnection` on `FileSystem.AppDataDirectory/inventory.db3`; table created lazily on first use.
 * Full CRUD: `SaveAsync` (create + update), `GetAllAsync`, `GetByIdAsync`, `GetLowStockAsync`, `DeleteAsync`.
 * Data persists because it is stored in a file; every page reloads from the DB in `OnAppearing`.
+* Schema and ER diagram: [docs/database-design.md](docs/database-design.md).
 
 **D. Async** - see the section below.
 
