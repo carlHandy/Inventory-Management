@@ -112,3 +112,27 @@ UI thread afterwards, so updating bound properties is safe. Each method has an X
 * Low-stock threshold is the constant `Product.LowStockThreshold` (5).
 * On first launch (when the database file is created) 12 sample products are inserted from `Services/SeedData.cs`, including low-stock and out-of-stock items. They are not re-added later, so deleted products stay deleted.
 * Only the Android target was compiled during development on Linux; iOS / Mac Catalyst / Windows projects use the standard template configuration.
+* **Running on Waydroid (Linux):** Waydroid needs a standalone x86_64 APK. A Debug build won't work because it doesn't contain the app's code inside the APK.
+  ```bash
+  # Build a signed Release APK for x86_64
+  dotnet publish InventoryManager/InventoryManager.csproj -c Release -f net10.0-android \
+    -p:TargetFrameworks=net10.0-android -p:RuntimeIdentifier=android-x64 \
+    -p:AndroidPackageFormat=apk -o publish
+
+  # Install it (Waydroid session must be running)
+  waydroid session start &
+  waydroid show-full-ui
+  waydroid app install publish/com.companyname.inventorymanager-Signed.apk
+  ```
+  To start again with a fresh database and the sample data, uninstall first with `waydroid app remove com.companyname.inventorymanager`.
+  For a phone-shaped window, set a portrait size and restart the session:
+  ```bash
+  waydroid prop set persist.waydroid.width 450
+  waydroid prop set persist.waydroid.height 900
+  waydroid session stop && waydroid session start &
+  ```
+  To make text smaller, connect adb using the IP shown by `waydroid status` and lower the density:
+  ```bash
+  adb connect <waydroid-ip>:5555
+  adb shell wm density 200   # higher = bigger; `wm density reset` undoes it
+  ```
