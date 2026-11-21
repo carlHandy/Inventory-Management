@@ -11,10 +11,12 @@
     <TabBar>
         <ShellContent
             Title="Products"
+            Icon="tab_products.png"
             Route="products"
             ContentTemplate="{DataTemplate views:ProductListPage}" />
         <ShellContent
             Title="Low Stock"
+            Icon="tab_lowstock.png"
             Route="lowstock"
             ContentTemplate="{DataTemplate views:LowStockPage}" />
     </TabBar>

@@ -32,8 +32,11 @@
 
 	<ItemGroup>
 		<!-- App icon and splash screen (generated for every platform from the SVGs) -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#0B1F3A" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#0B1F3A" BaseSize="128,128" />
+
+		<!-- Tab bar, toolbar and inline icons (SVG, converted to PNG at build time) -->
+		<MauiImage Include="Resources\Images\*" />
 	</ItemGroup>
 
 	<ItemGroup>

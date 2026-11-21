@@ -4,27 +4,49 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!-- Brand colours -->
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#8E75F0</Color>
+    <!--
+        Enterprise palette: deep navy app chrome, one blue accent for actions, cool slate neutrals,
+        and semantic status colours. Each colour has a light and a dark variant.
+    -->
+
+    <!-- Brand -->
+    <Color x:Key="Navy">#0B1F3A</Color>
+    <Color x:Key="NavyMuted">#9FB3CF</Color>
+    <Color x:Key="Primary">#1D4ED8</Color>
+    <Color x:Key="PrimaryDark">#60A5FA</Color>
+    <Color x:Key="PrimarySoftLight">#E8EFFD</Color>
+    <Color x:Key="PrimarySoftDark">#172B4D</Color>
     <Color x:Key="OnPrimary">#FFFFFF</Color>
 
-    <!-- Status colours -->
-    <Color x:Key="Danger">#C62828</Color>
-    <Color x:Key="DangerSoft">#FDECEA</Color>
-    <Color x:Key="Warning">#E65100</Color>
-    <Color x:Key="WarningSoft">#FFF3E0</Color>
-    <Color x:Key="Success">#2E7D32</Color>
+    <!-- Status: foreground (text/icons) and soft background, light and dark -->
+    <Color x:Key="Success">#15803D</Color>
+    <Color x:Key="SuccessDark">#4ADE80</Color>
+    <Color x:Key="SuccessSoftLight">#DCFCE7</Color>
+    <Color x:Key="SuccessSoftDark">#0F2E1D</Color>
 
-    <!-- Light / dark surfaces and text -->
-    <Color x:Key="PageLight">#F6F5FA</Color>
-    <Color x:Key="PageDark">#121212</Color>
+    <Color x:Key="Warning">#B45309</Color>
+    <Color x:Key="WarningDark">#FBBF24</Color>
+    <Color x:Key="WarningSoftLight">#FEF3C7</Color>
+    <Color x:Key="WarningSoftDark">#33270A</Color>
+
+    <Color x:Key="Danger">#B91C1C</Color>
+    <Color x:Key="DangerDark">#F87171</Color>
+    <Color x:Key="DangerSoftLight">#FEE2E2</Color>
+    <Color x:Key="DangerSoftDark">#3A1414</Color>
+
+    <!-- Surfaces, text and lines -->
+    <Color x:Key="PageLight">#F1F4F8</Color>
+    <Color x:Key="PageDark">#0A1020</Color>
     <Color x:Key="CardLight">#FFFFFF</Color>
-    <Color x:Key="CardDark">#1E1E1E</Color>
-    <Color x:Key="TextLight">#1B1B1F</Color>
-    <Color x:Key="TextDark">#F2F2F2</Color>
-    <Color x:Key="MutedLight">#6B6B76</Color>
-    <Color x:Key="MutedDark">#A8A8B3</Color>
-    <Color x:Key="BorderLight">#D9D8E0</Color>
-    <Color x:Key="BorderDark">#3A3A44</Color>
+    <Color x:Key="CardDark">#121A2E</Color>
+    <Color x:Key="SubtleLight">#F8FAFC</Color>
+    <Color x:Key="SubtleDark">#18223A</Color>
+    <Color x:Key="TextLight">#0F172A</Color>
+    <Color x:Key="TextDark">#E5EAF2</Color>
+    <Color x:Key="MutedLight">#64748B</Color>
+    <Color x:Key="MutedDark">#94A3B8</Color>
+    <Color x:Key="BorderLight">#E2E8F0</Color>
+    <Color x:Key="BorderDark">#25324D</Color>
+    <Color x:Key="InputBorderLight">#CBD5E1</Color>
+    <Color x:Key="InputBorderDark">#334360</Color>
 </ResourceDictionary>

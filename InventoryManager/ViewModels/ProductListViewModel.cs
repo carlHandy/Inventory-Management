@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows.Input;
 using InventoryManager.Models;
 using InventoryManager.Services;
@@ -27,12 +28,14 @@ public class ProductListViewModel : BaseViewModel
         _navigation = navigation;
 
         AddCommand = new Command(async () => await AddAsync());
+        ViewLowStockCommand = new Command(async () => await ViewLowStockAsync());
     }
 
     /// <summary>The products currently shown (after search / filter).</summary>
     public ObservableCollection<Product> Products { get; } = new();
 
     public ICommand AddCommand { get; }
+    public ICommand ViewLowStockCommand { get; }
 
     public string SearchText
     {
@@ -70,9 +73,20 @@ public class ProductListViewModel : BaseViewModel
 
     public bool HasLowStock => LowStockCount > 0;
 
+    // ---- Summary figures for the KPI tiles (whole inventory, not just the filtered list) ----
+
+    public int TotalProducts => _allProducts.Count;
+    public string TotalUnitsDisplay => _allProducts.Sum(p => p.Quantity).ToString("N0", CultureInfo.CurrentCulture);
+    public string InventoryValueDisplay => _allProducts.Sum(p => p.TotalValue).ToString("C0", CultureInfo.CurrentCulture);
+
+    /// <summary>e.g. "Showing 8 of 12 products".</summary>
+    public string ResultsText => Products.Count == _allProducts.Count
+        ? $"{_allProducts.Count} {(_allProducts.Count == 1 ? "product" : "products")}"
+        : $"Showing {Products.Count} of {_allProducts.Count}";
+
     public string LowStockBanner => LowStockCount == 1
-        ? "1 product is low on stock (see the Low Stock tab)"
-        : $"{LowStockCount} products are low on stock (see the Low Stock tab)";
+        ? "1 product is low on stock"
+        : $"{LowStockCount} products are low on stock";
 
     /// <summary>Bound to the CollectionView. Selecting an item opens its details page.</summary>
     public Product? SelectedProduct
@@ -98,6 +112,9 @@ public class ProductListViewModel : BaseViewModel
         {
             _allProducts = await _repository.GetAllAsync();
             LowStockCount = _allProducts.Count(p => p.IsLowStock);
+            OnPropertyChanged(nameof(TotalProducts));
+            OnPropertyChanged(nameof(TotalUnitsDisplay));
+            OnPropertyChanged(nameof(InventoryValueDisplay));
             ApplyFilter();
         }
         catch (Exception ex)
@@ -125,6 +142,8 @@ public class ProductListViewModel : BaseViewModel
         Products.Clear();
         foreach (var product in query)
             Products.Add(product);
+
+        OnPropertyChanged(nameof(ResultsText));
     }
 
     /// <summary>Async because navigation awaits the page transition.</summary>
@@ -137,6 +156,18 @@ public class ProductListViewModel : BaseViewModel
         catch (Exception ex)
         {
             await _dialogs.ShowMessageAsync("Error", $"Could not open the form. {ex.Message}");
+        }
+    }
+
+    private async Task ViewLowStockAsync()
+    {
+        try
+        {
+            await _navigation.GoToLowStockAsync();
+        }
+        catch (Exception ex)
+        {
+            await _dialogs.ShowMessageAsync("Error", $"Could not open the Low Stock tab. {ex.Message}");
         }
     }
 

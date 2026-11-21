@@ -35,6 +35,12 @@ public class LowStockViewModel : BaseViewModel
 
     public bool IsEmpty => Products.Count == 0;
 
+    /// <summary>Products with quantity 0.</summary>
+    public int OutOfStockCount => Products.Count(p => p.IsOutOfStock);
+
+    /// <summary>Products that still have some stock but are at or below the threshold.</summary>
+    public int RunningLowCount => Products.Count(p => !p.IsOutOfStock);
+
     public Product? SelectedProduct
     {
         get => _selectedProduct;
@@ -68,6 +74,8 @@ public class LowStockViewModel : BaseViewModel
                 _ => $"{lowStock.Count} products need restocking"
             };
             OnPropertyChanged(nameof(IsEmpty));
+            OnPropertyChanged(nameof(OutOfStockCount));
+            OnPropertyChanged(nameof(RunningLowCount));
         }
         catch (Exception ex)
         {

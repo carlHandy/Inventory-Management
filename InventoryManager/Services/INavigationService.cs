@@ -9,6 +9,9 @@ public interface INavigationService
     /// <summary>Opens the add/edit form. Pass 0 (or nothing) to add a new product.</summary>
     Task GoToEditAsync(int productId = 0);
 
+    /// <summary>Switches to the Low Stock tab.</summary>
+    Task GoToLowStockAsync();
+
     /// <summary>Goes back one page.</summary>
     Task GoBackAsync();
 }
@@ -24,6 +27,8 @@ public class NavigationService : INavigationService
         => productId > 0
             ? Shell.Current.GoToAsync($"{Routes.ProductEdit}?{Routes.ProductIdParameter}={productId}")
             : Shell.Current.GoToAsync(Routes.ProductEdit);
+
+    public Task GoToLowStockAsync() => Shell.Current.GoToAsync($"//{Routes.LowStockTab}");
 
     public Task GoBackAsync() => Shell.Current.GoToAsync("..");
 }

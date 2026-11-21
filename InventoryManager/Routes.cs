@@ -3,6 +3,7 @@ namespace InventoryManager;
 /// <summary>Central place for the Shell route names (avoids typos in "magic strings").</summary>
 public static class Routes
 {
+    public const string LowStockTab = "lowstock";
     public const string ProductDetails = "details";
     public const string ProductEdit = "edit";
 

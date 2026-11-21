@@ -4,100 +4,234 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!-- Every page gets the same background (light/dark aware) -->
+    <!-- Medium weight for headings and buttons (Roboto Medium on Android, system default elsewhere) -->
+    <OnPlatform x:Key="FontMedium" x:TypeArguments="x:String">
+        <On Platform="Android" Value="sans-serif-medium" />
+    </OnPlatform>
+
+    <!-- ================= Page and app chrome ================= -->
+
     <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageLight}, Dark={StaticResource PageDark}}" />
     </Style>
 
-    <!-- Shell (top bar + tab bar) -->
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Navy}" />
         <Setter Property="Shell.ForegroundColor" Value="{StaticResource OnPrimary}" />
         <Setter Property="Shell.TitleColor" Value="{StaticResource OnPrimary}" />
+        <Setter Property="Shell.NavBarHasShadow" Value="False" />
         <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}" />
         <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
         <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
         <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
     </Style>
 
-    <!-- Labels -->
+    <!-- ================= Typography ================= -->
+
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontSize" Value="14" />
     </Style>
-    <Style x:Key="TitleLabel" TargetType="Label">
+
+    <!-- Large heading at the top of a detail screen -->
+    <Style x:Key="HeadingLabel" TargetType="Label">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
-        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontSize" Value="20" />
         <Setter Property="FontAttributes" Value="Bold" />
     </Style>
+
+    <!-- Primary line of a row or card -->
+    <Style x:Key="TitleLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMedium}" />
+    </Style>
+
     <Style x:Key="MutedLabel" TargetType="Label">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
         <Setter Property="FontSize" Value="13" />
     </Style>
-    <Style x:Key="FieldLabel" TargetType="Label">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="FontAttributes" Value="Bold" />
-    </Style>
-    <Style x:Key="ErrorLabel" TargetType="Label">
-        <Setter Property="TextColor" Value="{StaticResource Danger}" />
-        <Setter Property="FontSize" Value="13" />
+
+    <!-- Small upper-case heading above a group of content -->
+    <Style x:Key="SectionHeader" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMedium}" />
+        <Setter Property="CharacterSpacing" Value="1.2" />
     </Style>
 
-    <!-- Inputs -->
+    <!-- KPI tiles: caption above, big number below -->
+    <Style x:Key="MetricCaption" TargetType="Label" BasedOn="{StaticResource SectionHeader}">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="LineBreakMode" Value="TailTruncation" />
+    </Style>
+    <Style x:Key="MetricValue" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="LineBreakMode" Value="TailTruncation" />
+    </Style>
+
+    <!-- Form field caption -->
+    <Style x:Key="FieldLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMedium}" />
+    </Style>
+
+    <Style x:Key="ErrorLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Danger}, Dark={StaticResource DangerDark}}" />
+        <Setter Property="FontSize" Value="12" />
+    </Style>
+
+    <!-- ================= Inputs ================= -->
+    <!-- Native underlines are removed in MauiProgram; the InputField border draws the box instead. -->
+
     <Style TargetType="Entry">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontSize" Value="15" />
     </Style>
     <Style TargetType="Picker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
         <Setter Property="TitleColor" Value="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
-        <Setter Property="FontSize" Value="16" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontSize" Value="15" />
     </Style>
     <Style TargetType="SearchBar">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
         <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
+        <Setter Property="CancelButtonColor" Value="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style TargetType="Switch">
+        <Setter Property="OnColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
     </Style>
 
-    <!-- Buttons -->
+    <Style x:Key="InputField" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource SubtleDark}}" />
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource InputBorderLight}, Dark={StaticResource InputBorderDark}}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 6" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="MinimumHeightRequest" Value="48" />
+    </Style>
+
+    <!-- ================= Buttons ================= -->
+
+    <!-- Primary (default) -->
     <Style TargetType="Button">
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
         <Setter Property="TextColor" Value="{StaticResource OnPrimary}" />
-        <Setter Property="CornerRadius" Value="8" />
-        <Setter Property="Padding" Value="16,10" />
-        <Setter Property="FontSize" Value="15" />
-    </Style>
-    <Style x:Key="DangerButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="{StaticResource Danger}" />
-        <Setter Property="TextColor" Value="{StaticResource OnPrimary}" />
-        <Setter Property="CornerRadius" Value="8" />
-        <Setter Property="Padding" Value="16,10" />
-        <Setter Property="FontSize" Value="15" />
-    </Style>
-    <Style x:Key="SecondaryButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
-        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
-        <Setter Property="BorderWidth" Value="1" />
-        <Setter Property="CornerRadius" Value="8" />
-        <Setter Property="Padding" Value="16,10" />
-        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMedium}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="HeightRequest" Value="46" />
+        <Setter Property="Padding" Value="16,0" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="Opacity" Value="0.5" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
 
-    <!-- Cards and badges -->
+    <!-- Neutral outlined button for secondary actions (Cancel, -1) -->
+    <Style x:Key="SecondaryButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}" />
+        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource InputBorderLight}, Dark={StaticResource InputBorderDark}}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMedium}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="HeightRequest" Value="46" />
+        <Setter Property="Padding" Value="16,0" />
+    </Style>
+
+    <!-- Destructive action: outlined so it does not compete with the primary action -->
+    <Style x:Key="DangerButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Danger}, Dark={StaticResource DangerDark}}" />
+        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Danger}, Dark={StaticResource DangerDark}}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMedium}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="HeightRequest" Value="46" />
+        <Setter Property="Padding" Value="16,0" />
+    </Style>
+
+    <!-- Square stepper button (stock -1 / +1) -->
+    <Style x:Key="StepperButton" TargetType="Button" BasedOn="{StaticResource SecondaryButton}">
+        <Setter Property="WidthRequest" Value="56" />
+        <Setter Property="HeightRequest" Value="48" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+
+    <!-- ================= Containers ================= -->
+
     <Style x:Key="Card" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}" />
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}" />
         <Setter Property="StrokeThickness" Value="1" />
-        <Setter Property="StrokeShape" Value="RoundRectangle 12" />
-        <Setter Property="Padding" Value="14" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+        <Setter Property="Padding" Value="16" />
     </Style>
-    <Style x:Key="WarningBadge" TargetType="Border">
-        <Setter Property="BackgroundColor" Value="{StaticResource WarningSoft}" />
-        <Setter Property="Stroke" Value="{StaticResource Warning}" />
+
+    <!-- KPI tile -->
+    <Style x:Key="MetricCard" TargetType="Border" BasedOn="{StaticResource Card}">
+        <Setter Property="Padding" Value="12,10" />
+    </Style>
+
+    <!-- Bar pinned to the bottom of a form / details screen holding the main actions -->
+    <Style x:Key="ActionBar" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}" />
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="Rectangle" />
+        <Setter Property="Padding" Value="16,12" />
+        <Setter Property="Margin" Value="-1,0,-1,-1" />
+    </Style>
+
+    <!-- Warning alert bar (low-stock notice on the Products screen) -->
+    <Style x:Key="WarningAlert" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource WarningSoftLight}, Dark={StaticResource WarningSoftDark}}" />
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Warning}, Dark={StaticResource WarningDark}}" />
         <Setter Property="StrokeThickness" Value="1" />
         <Setter Property="StrokeShape" Value="RoundRectangle 8" />
-        <Setter Property="Padding" Value="8,2" />
+        <Setter Property="Padding" Value="12,10" />
+    </Style>
+
+    <!-- Rounded square with a product's initials -->
+    <Style x:Key="AvatarTile" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PrimarySoftLight}, Dark={StaticResource PrimarySoftDark}}" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+        <Setter Property="WidthRequest" Value="40" />
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+    <Style x:Key="AvatarText" TargetType="Label">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontMedium}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <!-- 1px horizontal rule between rows inside a card -->
+    <Style x:Key="Divider" TargetType="BoxView">
+        <Setter Property="HeightRequest" Value="1" />
+        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource BorderLight}, Dark={StaticResource BorderDark}}" />
     </Style>
 </ResourceDictionary>

@@ -53,8 +53,11 @@ public class ProductDetailViewModel : BaseViewModel
     public string TotalValueDisplay => _product?.TotalValueDisplay ?? string.Empty;
     public string StockStatus => _product?.StockStatus ?? string.Empty;
     public bool IsLowStock => _product?.IsLowStock ?? false;
-    public string CreatedText => _product is null ? string.Empty : $"Added: {_product.CreatedAt:g}";
-    public string UpdatedText => _product is null ? string.Empty : $"Last updated: {_product.UpdatedAt:g}";
+    public StockLevel StockLevel => _product?.StockLevel ?? StockLevel.InStock;
+    public string Initials => _product?.Initials ?? string.Empty;
+    public string IdDisplay => _product is null ? string.Empty : $"#{_product.Id:D5}";
+    public string CreatedText => _product is null ? string.Empty : $"{_product.CreatedAt:g}";
+    public string UpdatedText => _product is null ? string.Empty : $"{_product.UpdatedAt:g}";
 
     public string StatusMessage
     {

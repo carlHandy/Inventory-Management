@@ -61,6 +61,27 @@ public class Product
     [Ignore]
     public string StockStatus => IsOutOfStock ? "Out of stock" : IsLowStock ? "Low stock" : "In stock";
 
+    [Ignore]
+    public StockLevel StockLevel => IsOutOfStock ? StockLevel.OutOfStock : IsLowStock ? StockLevel.Low : StockLevel.InStock;
+
+    /// <summary>Up to two letters from the name (e.g. "Wireless Mouse" -> "WM"), shown in the list avatar.</summary>
+    [Ignore]
+    public string Initials
+    {
+        get
+        {
+            var words = (Name ?? string.Empty).Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Where(w => char.IsLetterOrDigit(w[0]))
+                .ToArray();
+            return words.Length switch
+            {
+                0 => "?",
+                1 => words[0][..Math.Min(2, words[0].Length)].ToUpperInvariant(),
+                _ => string.Concat(char.ToUpperInvariant(words[0][0]), char.ToUpperInvariant(words[1][0]))
+            };
+        }
+    }
+
     // ---- Methods ----
 
     /// <summary>

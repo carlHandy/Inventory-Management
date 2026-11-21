@@ -3,6 +3,28 @@
 A small-business mobile app for registering products and monitoring available stock. Built with
 .NET 10 MAUI (C#), plain MVVM, and a local SQLite database (sqlite-net-pcl).
 
+## Screenshots
+
+Taken on Android (Waydroid, 450x900). The app follows the system light or dark theme.
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/products-dark.png" width="220" alt="Products list, dark theme" /><br/>Products</td>
+    <td align="center"><img src="docs/screenshots/low-stock-dark.png" width="220" alt="Low Stock tab, dark theme" /><br/>Low Stock</td>
+    <td align="center"><img src="docs/screenshots/details-dark.png" width="220" alt="Product details, dark theme" /><br/>Product Details</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/edit-dark.png" width="220" alt="Edit product form, dark theme" /><br/>Edit Product</td>
+    <td align="center"><img src="docs/screenshots/edit-validation-dark.png" width="220" alt="Edit form showing a validation error" /><br/>Inline validation</td>
+    <td align="center"><img src="docs/screenshots/products-light.png" width="220" alt="Products list, light theme" /><br/>Products (light)</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/details-light.png" width="220" alt="Product details, light theme" /><br/>Product Details (light)</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
 ## What it does
 
 | Screen | Purpose |
@@ -34,13 +56,15 @@ InventoryManager.sln
 InventoryManager/
   InventoryManager.csproj
   App.xaml(.cs), AppShell.xaml(.cs), MauiProgram.cs, Routes.cs
-  Models/       Product.cs, ProductCategories.cs, InputParser.cs, ValidationError.cs
+  Models/       Product.cs, StockLevel.cs, ProductCategories.cs, InputParser.cs, ValidationError.cs
   Services/     IProductRepository.cs, ProductDatabase.cs (SQLite),
                 IDialogService.cs (alerts), INavigationService.cs (Shell navigation)
   ViewModels/   BaseViewModel.cs, ProductListViewModel.cs, ProductEditViewModel.cs,
                 ProductDetailViewModel.cs, LowStockViewModel.cs
   Views/        ProductListPage, ProductEditPage, ProductDetailPage, LowStockPage (.xaml + .xaml.cs)
-  Resources/    AppIcon/, Splash/, Styles/Colors.xaml, Styles/Styles.xaml
+  Controls/     ProductRow (shared list row), StatusPill (green/amber/red stock chip)
+  Resources/    AppIcon/, Splash/, Images/ (tab and toolbar icons, SVG),
+                Styles/Colors.xaml (palette), Styles/Styles.xaml (typography, buttons, cards, inputs)
   Platforms/    Android, iOS, MacCatalyst, Windows (standard MAUI boilerplate)
 ```
 
