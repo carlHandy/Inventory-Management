@@ -56,9 +56,25 @@
                                     <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Danger}, Dark={StaticResource DangerDark}}" />
                                 </DataTrigger>
                             </Border.Triggers>
-                            <Picker Title="Select a category"
-                                    ItemsSource="{Binding Categories}"
-                                    SelectedItem="{Binding Category}" />
+                            <!-- Picker spans the full width so the whole box is tappable;
+                                 the chevron is drawn on top and lets taps pass through. -->
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Picker Grid.ColumnSpan="2"
+                                        Title="Select a category"
+                                        ItemsSource="{Binding Categories}"
+                                        SelectedItem="{Binding Category}" />
+                                <Path Grid.Column="1"
+                                      Data="M0,0 L6,6 L12,0"
+                                      Stroke="{AppThemeBinding Light={StaticResource MutedLight}, Dark={StaticResource MutedDark}}"
+                                      StrokeThickness="2"
+                                      StrokeLineCap="Round"
+                                      StrokeLineJoin="Round"
+                                      WidthRequest="14"
+                                      HeightRequest="8"
+                                      Margin="0,0,4,0"
+                                      VerticalOptions="Center"
+                                      InputTransparent="True" />
+                            </Grid>
                         </Border>
                         <Label Text="{Binding CategoryError}" IsVisible="{Binding HasCategoryError}" Style="{StaticResource ErrorLabel}" />
                     </VerticalStackLayout>
