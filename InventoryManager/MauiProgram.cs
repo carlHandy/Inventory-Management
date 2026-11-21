@@ -21,11 +21,13 @@ public static class MauiProgram
         builder.Services.AddTransient<ProductListViewModel>();
         builder.Services.AddTransient<ProductEditViewModel>();
         builder.Services.AddTransient<ProductDetailViewModel>();
+        builder.Services.AddTransient<LowStockViewModel>();
 
         // Pages
         builder.Services.AddTransient<ProductListPage>();
         builder.Services.AddTransient<ProductEditPage>();
         builder.Services.AddTransient<ProductDetailPage>();
+        builder.Services.AddTransient<LowStockPage>();
 
         return builder.Build();
     }

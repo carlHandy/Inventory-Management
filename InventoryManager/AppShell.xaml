@@ -7,11 +7,15 @@
     Shell.FlyoutBehavior="Disabled"
     Title="Inventory Manager">
 
-    <!-- Root tabs. Pages are created through dependency injection. -->
+    <!-- Two root tabs. Pages are created through dependency injection. -->
     <TabBar>
         <ShellContent
             Title="Products"
             Route="products"
             ContentTemplate="{DataTemplate views:ProductListPage}" />
+        <ShellContent
+            Title="Low Stock"
+            Route="lowstock"
+            ContentTemplate="{DataTemplate views:LowStockPage}" />
     </TabBar>
 </Shell>
