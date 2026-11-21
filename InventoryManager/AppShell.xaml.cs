@@ -1,3 +1,5 @@
+using InventoryManager.Views;
+
 namespace InventoryManager;
 
 public partial class AppShell : Shell

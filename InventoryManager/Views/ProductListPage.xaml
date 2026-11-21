@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="InventoryManager.Views.ProductListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:InventoryManager.Models"
+    xmlns:vm="clr-namespace:InventoryManager.ViewModels"
+    x:DataType="vm:ProductListViewModel"
+    Title="Products">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*" Padding="16" RowSpacing="10">
+
+        <!-- Low-stock banner (only visible when there are low-stock products) -->
+        <Border Grid.Row="0"
+                Style="{StaticResource WarningBadge}"
+                Padding="12,8"
+                IsVisible="{Binding HasLowStock}">
+            <Label Text="{Binding LowStockBanner}"
+                   TextColor="{StaticResource Warning}"
+                   FontAttributes="Bold" />
+        </Border>
+
+        <SearchBar Grid.Row="1"
+                   Placeholder="Search by name or category"
+                   Text="{Binding SearchText}" />
+
+        <HorizontalStackLayout Grid.Row="2" Spacing="8">
+            <Switch IsToggled="{Binding InStockOnly}" VerticalOptions="Center" />
+            <Label Text="Only show products in stock" VerticalOptions="Center" />
+        </HorizontalStackLayout>
+
+        <CollectionView Grid.Row="3"
+                        ItemsSource="{Binding Products}"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedProduct}">
+            <CollectionView.EmptyView>
+                <Label Text="No products to show. Tap Add to register your first product."
+                       Style="{StaticResource MutedLabel}"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,40,0,0" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Product">
+                    <Border Style="{StaticResource Card}" Margin="0,4">
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="8">
+                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" Style="{StaticResource TitleLabel}" />
+                            <Label Grid.Row="1" Grid.Column="0" Text="{Binding Category}" Style="{StaticResource MutedLabel}" />
+                            <Label Grid.Row="2" Grid.Column="0" Text="{Binding PriceDisplay}" />
+
+                            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="3" Grid.Column="1"
+                                                 Spacing="6" HorizontalOptions="End" VerticalOptions="Center">
+                                <Label Text="{Binding Quantity, StringFormat='Qty: {0}'}"
+                                       Style="{StaticResource TitleLabel}"
+                                       HorizontalTextAlignment="End" />
+                                <Border Style="{StaticResource WarningBadge}"
+                                        IsVisible="{Binding IsLowStock}"
+                                        HorizontalOptions="End">
+                                    <Label Text="{Binding StockStatus}"
+                                           FontSize="12"
+                                           FontAttributes="Bold"
+                                           TextColor="{StaticResource Warning}" />
+                                </Border>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
