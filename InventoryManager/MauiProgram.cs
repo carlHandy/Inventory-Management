@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using InventoryManager.Services;
 
 namespace InventoryManager;
 
@@ -8,6 +9,9 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder.UseMauiApp<App>();
+
+        // Services: one shared instance for the whole app
+        builder.Services.AddSingleton<IProductRepository, ProductDatabase>();
 
         return builder.Build();
     }
