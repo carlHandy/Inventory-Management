@@ -20,6 +20,8 @@ erDiagram
     }
 ```
 
+A PNG export of this diagram is in [database-design.png](database-design.png).
+
 There is one table and no foreign keys. Categories are a fixed list in code
 (`Models/ProductCategories.cs`), not a lookup table, so `Category` holds the category name as text.
 
